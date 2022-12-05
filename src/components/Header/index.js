@@ -50,6 +50,9 @@ export function Header({ t }) {
     <HeaderRoot>
       <HeaderContainer>
         <NavRoot>
+          <a href="">
+            <img src="/static/images/logo-dark.png" alt="logo" className="inline-block" />
+          </a>
           <ListItem>
             <CustomLink href={'#features'} name={t('phrases.features')} />
             <CustomLink href={'#exampleGetApi'} name={t('phrases.apiExample')} />

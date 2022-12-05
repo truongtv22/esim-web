@@ -61,6 +61,7 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "autoprefixer": "^10.4.13",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
     "babel-plugin-dynamic-import-node": "^2.3.0",
@@ -77,8 +78,11 @@
     "husky": "^2.4.1",
     "jest-cli": "^24.9.0",
     "lint-staged": "^10.0.3",
+    "postcss": "^8.4.19",
     "prettier": "^1.18.2",
     "react-test-renderer": "^17.0.1",
+    "sass": "^1.56.1",
+    "tailwindcss": "^3.2.4",
     "whatwg-fetch": "^3.0.0"
   }
 }

@@ -10,6 +10,8 @@ import { appWithTranslation } from 'utils/with-i18next';
 import 'fontsource-metropolis';
 import '@typefaces-pack/typeface-inter';
 
+import 'styles/global.scss';
+
 class Srr extends App {
   render() {
     const { Component, pageProps, reduxStore } = this.props;
