@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Head from 'next/head';
 import App from 'next/app';
 
+import { MantineProvider } from '@mantine/core';
+
 import withReduxStore from 'utils/with-redux-store';
 import { appWithTranslation } from 'utils/with-i18next';
 
@@ -18,11 +20,12 @@ class Srr extends App {
     return (
       <React.StrictMode>
         <Head>
-          <title>React Next Boilerplate</title>
+          <title>Mantine</title>
         </Head>
-
         <Provider store={reduxStore}>
-          <Component {...pageProps} />
+          <MantineProvider withGlobalStyles withNormalizeCSS>
+            <Component {...pageProps} />
+          </MantineProvider>
         </Provider>
       </React.StrictMode>
     );

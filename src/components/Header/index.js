@@ -1,76 +1,127 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled from '@emotion/styled';
+import dynamic from 'next/dynamic';
 
-import { withTranslation } from 'utils/with-i18next';
+import { createStyles, Menu, Center, Header, Container, Group, Button, Burger } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { IconChevronDown } from '@tabler/icons';
+import { MantineLogo } from '@mantine/ds';
 
-import SelectLanguages from './SelectLanguages';
-import CustomLink from './CustomLink';
+import { Link, withTranslation } from 'utils/with-i18next';
 
-const HeaderRoot = styled(`header`)`
-  left: 0;
-  width: 100%;
-  height: 64px;
-  position: sticky;
-  top: 0px;
-  z-index: 1000;
-`;
+const SelectLanguages = dynamic(() => import('./SelectLanguages'), { ssr: false });
 
-const HeaderContainer = styled('div')`
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.06);
-`;
+const HEADER_HEIGHT = 60;
 
-const NavRoot = styled('nav')`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 16px;
-  height: 64px;
-  max-width: 1024px;
-`;
+const useStyles = createStyles(theme => ({
+  inner: {
+    height: HEADER_HEIGHT,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 
-const ListItem = styled('div')`
-  display: flex;
-`;
+  links: {
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    },
+  },
 
-const ListActions = styled('div')`
-  display: flex;
-`;
+  burger: {
+    [theme.fn.largerThan('sm')]: {
+      display: 'none',
+    },
+  },
 
-const Space = styled('div')`
-  flex: 1 1 auto;
-`;
+  link: {
+    display: 'block',
+    lineHeight: 1,
+    padding: '8px 12px',
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    fontSize: theme.fontSizes.sm,
+    fontWeight: 500,
 
-export function Header({ t }) {
+    '&:hover': {
+      color: theme.fn.variant({ variant: 'outline', color: theme.primaryColor }).color,
+    },
+  },
+
+  linkLabel: {
+    marginRight: 5,
+  },
+}));
+
+const links = [
+  {
+    link: '/',
+    key: 'header.home',
+  },
+  {
+    link: '/pricing',
+    key: 'header.pricing',
+  },
+  {
+    link: '/about',
+    key: 'header.about',
+  },
+];
+
+export function AppHeader({ t }) {
+  const { classes } = useStyles();
+  const [opened, { toggle }] = useDisclosure(false);
+
+  const items = links.map(link => {
+    const menuItems = link.links?.map(item => <Menu.Item key={item.link}>{t(link.key)}</Menu.Item>);
+
+    if (menuItems) {
+      return (
+        <Menu key={link.key} trigger="hover" exitTransitionDuration={0}>
+          <Menu.Target>
+            <a href={link.link} className={classes.link} onClick={event => event.preventDefault()}>
+              <Center>
+                <span className={classes.linkLabel}>{t(link.key)}</span>
+                <IconChevronDown size={12} stroke={1.5} />
+              </Center>
+            </a>
+          </Menu.Target>
+          <Menu.Dropdown>{menuItems}</Menu.Dropdown>
+        </Menu>
+      );
+    }
+
+    return (
+      <Link key={link.key} href={link.link}>
+        <a className={classes.link}>{t(link.key)}</a>
+      </Link>
+    );
+  });
+
   return (
-    <HeaderRoot>
-      <HeaderContainer>
-        <NavRoot>
-          <a href="">
-            <img src="/static/images/logo-dark.png" alt="logo" className="inline-block" />
-          </a>
-          <ListItem>
-            <CustomLink href={'#features'} name={t('phrases.features')} />
-            <CustomLink href={'#exampleGetApi'} name={t('phrases.apiExample')} />
-          </ListItem>
-
-          <Space />
-
-          <ListActions>
-            <SelectLanguages t={t} />
-          </ListActions>
-        </NavRoot>
-      </HeaderContainer>
-    </HeaderRoot>
+    <Header height={HEADER_HEIGHT} sx={{ borderBottom: 0 }} mb={120}>
+      <Container className={classes.inner}>
+        <Group>
+          <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" />
+          <MantineLogo size={28} />
+        </Group>
+        <Group spacing={5} className={classes.links}>
+          {items}
+        </Group>
+        <Group>
+          <Button radius="xl" sx={{ height: 30 }}>
+            Get early access
+          </Button>
+          <SelectLanguages t={t} />
+        </Group>
+      </Container>
+    </Header>
   );
 }
 
-Header.propTypes = {
+AppHeader.propTypes = {
   t: PropTypes.func,
 };
 
-export default withTranslation('common')(Header);
+export default withTranslation('common')(AppHeader);

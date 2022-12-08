@@ -1,41 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styled from '@emotion/styled';
+import { Center, Flex, Input, Text, Title } from '@mantine/core';
+import { IconDeviceMobile, IconHeadset, IconLifebuoy, IconSearch } from '@tabler/icons';
 
 import { withTranslation } from 'utils/with-i18next';
 
-const BannerRoot = styled('div')`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-`;
-
-const Title = styled('h1')`
-  font-size: 45px;
-`;
-
-const SubTitle = styled('h2')`
-  font-size: 20px;
-  margin: 0;
-  font-weight: 300;
-`;
-
-const Logo = styled('img')`
-  width: 110px;
-`;
-
 export function Banner({ t }) {
   return (
-    <BannerRoot>
-      <Logo src="/static/images/reac-next-boilerplate-logo.svg" alt="react-next-boilerplate" />
-
-      <Title>{t('title')}</Title>
-
-      <SubTitle>{t('subTitle')}</SubTitle>
-    </BannerRoot>
+    <Flex direction="column" gap={46}>
+      <Center>
+        <Flex direction="column" gap="lg">
+          <Flex direction="column" align="center">
+            <Text fz="xl">{"Don't pay for roaming anymore"}</Text>
+            <Title>{'Internet wherever you travel'}</Title>
+          </Flex>
+          <Input size="md" radius="xl" icon={<IconSearch size={18} />} placeholder={'Where do you need internet?'} />
+        </Flex>
+      </Center>
+      <Flex direction={{ base: 'column', sm: 'row' }} className="p-10 rounded-lg bg-gray-100">
+        <Flex gap="sm" className="px-10">
+          <div>
+            <IconHeadset size={36} />
+          </div>
+          <Text>You keep your WhatsApp in Spanish.</Text>
+        </Flex>
+        <Flex gap="sm" className="px-10">
+          <div>
+            <IconLifebuoy size={36} />
+          </div>
+          <Text>Help in Spanish 24 hours a day.</Text>
+        </Flex>
+        <Flex gap="sm" className="px-10">
+          <div>
+            <IconDeviceMobile size={36} />
+          </div>
+          <Text>Easy to use: insert, configure and go.</Text>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 }
 

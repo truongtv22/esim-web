@@ -1,77 +1,217 @@
-/**
- * [Footer]
- * This component shows the use of built-in CSS support
- */
-
 import React from 'react';
 
+import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
+import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons';
+import { MantineLogo } from '@mantine/ds';
+
+const useStyles = createStyles(theme => ({
+  footer: {
+    marginTop: 120,
+    paddingTop: theme.spacing.xl * 2,
+    paddingBottom: theme.spacing.xl * 2,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]}`,
+  },
+
+  logo: {
+    maxWidth: 200,
+
+    [theme.fn.smallerThan('sm')]: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+
+  description: {
+    marginTop: 5,
+
+    [theme.fn.smallerThan('sm')]: {
+      marginTop: theme.spacing.xs,
+      textAlign: 'center',
+    },
+  },
+
+  inner: {
+    display: 'flex',
+    justifyContent: 'space-between',
+
+    [theme.fn.smallerThan('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
+  },
+
+  groups: {
+    display: 'flex',
+    flexWrap: 'wrap',
+
+    [theme.fn.smallerThan('sm')]: {
+      display: 'none',
+    },
+  },
+
+  wrapper: {
+    width: 160,
+  },
+
+  link: {
+    display: 'block',
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    fontSize: theme.fontSizes.sm,
+    paddingTop: 3,
+    paddingBottom: 3,
+
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+
+  title: {
+    fontSize: theme.fontSizes.lg,
+    fontWeight: 700,
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    marginBottom: theme.spacing.xs / 2,
+    color: theme.colorScheme === 'dark' ? theme.white : theme.black,
+  },
+
+  afterFooter: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: theme.spacing.xl,
+    paddingTop: theme.spacing.xl,
+    paddingBottom: theme.spacing.xl,
+    borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]}`,
+
+    [theme.fn.smallerThan('sm')]: {
+      flexDirection: 'column',
+    },
+  },
+
+  social: {
+    [theme.fn.smallerThan('sm')]: {
+      marginTop: theme.spacing.xs,
+    },
+  },
+}));
+
+const data = [
+  {
+    title: 'About',
+    links: [
+      {
+        label: 'Features',
+        link: '#',
+      },
+      {
+        label: 'Pricing',
+        link: '#',
+      },
+      {
+        label: 'Support',
+        link: '#',
+      },
+      {
+        label: 'Forums',
+        link: '#',
+      },
+    ],
+  },
+  {
+    title: 'Project',
+    links: [
+      {
+        label: 'Contribute',
+        link: '#',
+      },
+      {
+        label: 'Media assets',
+        link: '#',
+      },
+      {
+        label: 'Changelog',
+        link: '#',
+      },
+      {
+        label: 'Releases',
+        link: '#',
+      },
+    ],
+  },
+  {
+    title: 'Community',
+    links: [
+      {
+        label: 'Join Discord',
+        link: '#',
+      },
+      {
+        label: 'Follow on Twitter',
+        link: '#',
+      },
+      {
+        label: 'Email newsletter',
+        link: '#',
+      },
+      {
+        label: 'GitHub discussions',
+        link: '#',
+      },
+    ],
+  },
+];
+
 function Footer() {
-  return (
-    <footer className="root">
-      <div className="container">
-        <div className="row">
-          <a
-            className="link"
-            href="https://nextjs.org/features/server-side-rendering"
-            rel="noopener noreferrer"
-            target="_blank">
-            SSR
-          </a>
+  const { classes } = useStyles();
 
-          <a
-            className="link"
-            href="https://nextjs.org/features/static-exporting"
-            rel="noopener noreferrer"
-            target="_blank">
-            Static Exporting
-          </a>
+  const groups = data.map(group => {
+    const links = group.links.map((link, index) => (
+      <Text
+        key={index}
+        className={classes.link}
+        component="a"
+        href={link.link}
+        onClick={event => event.preventDefault()}>
+        {link.label}
+      </Text>
+    ));
 
-          <a className="link" href="https://nextjs.org/features/css-in-js" rel="noopener noreferrer" target="_blank">
-            CSS-in-JS
-          </a>
-
-          <a
-            className="link"
-            href="https://nextjs.org/features/progressive-web-apps"
-            rel="noopener noreferrer"
-            target="_blank">
-            PWA
-          </a>
-        </div>
+    return (
+      <div className={classes.wrapper} key={group.title}>
+        <Text className={classes.title}>{group.title}</Text>
+        {links}
       </div>
+    );
+  });
 
-      <style jsx>{`
-        .root {
-          bottom: 0;
-          width: 100%;
-          margin: 0 auto;
-          padding: 0 0;
-          background-image: linear-gradient(to bottom, #121212 0%, #323232 100%);
-          color: #f1f1f1;
-          overflow: hidden;
-        }
-
-        .container {
-          margin: 0 auto;
-          max-width: 1024px;
-          padding: 2rem 0 4rem;
-          min-height: 200px;
-        }
-
-        .row {
-          display: flex;
-          justify-content: space-evenly;
-        }
-
-        .link {
-          text-decoration: none;
-          color: #f1f1f1;
-        }
-
-        .link:hover {
-          text-decoration: underline;
-        }
-      `}</style>
+  return (
+    <footer className={classes.footer}>
+      <Container className={classes.inner}>
+        <div className={classes.logo}>
+          <MantineLogo size={30} />
+          <Text size="xs" color="dimmed" className={classes.description}>
+            Build fully functional accessible web applications faster than ever
+          </Text>
+        </div>
+        <div className={classes.groups}>{groups}</div>
+      </Container>
+      <Container className={classes.afterFooter}>
+        <Text color="dimmed" size="sm">
+          © 2022 mantine.dev. All rights reserved.
+        </Text>
+        <Group spacing={0} className={classes.social} position="right" noWrap>
+          <ActionIcon size="lg">
+            <IconBrandTwitter size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandYoutube size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg">
+            <IconBrandInstagram size={18} stroke={1.5} />
+          </ActionIcon>
+        </Group>
+      </Container>
     </footer>
   );
 }

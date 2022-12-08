@@ -9,8 +9,10 @@ import { useInjectReducer } from 'utils/inject-reducer';
 import { useInjectSaga } from 'utils/inject-saga';
 
 import Layout from 'components/Layout';
-import Features from 'components/Features';
-import Showcases from 'components/Showcases';
+import Banner from 'components/Banner';
+import Products from 'components/Products';
+// import Features from 'components/Features';
+// import Showcases from 'components/Showcases';
 
 import saga from './saga';
 import reducer from './reducer';
@@ -23,9 +25,10 @@ export function Home({ getShowcases, showcasesData }) {
 
   return (
     <Layout>
-      <Features />
-
-      <Showcases onGetShowcases={getShowcases} data={showcasesData} />
+      <Banner />
+      <Products />
+      {/* <Features /> */}
+      {/* <Showcases onGetShowcases={getShowcases} data={showcasesData} /> */}
     </Layout>
   );
 }

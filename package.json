@@ -5,8 +5,8 @@
   "author": "Jorge Luis Calleja <jorgelca1205@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev -p 8080",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider; next build",
     "start": "next start",
     "test:unit": "cross-env NODE_ENV=test jest --coverage",
     "test": "npm run test:unit",
@@ -17,11 +17,6 @@
     "prettier": "prettier --config .prettierrc \"./**/*.+(js|json|jsx)\" --write",
     "clean:example": "rnb --c"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.js": [
       "eslint --fix"
@@ -31,8 +26,13 @@
     ]
   },
   "dependencies": {
-    "@emotion/react": "^11.1.4",
+    "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.0.0",
+    "@mantine/core": "^5.9.2",
+    "@mantine/ds": "^5.9.2",
+    "@mantine/hooks": "^5.9.2",
+    "@mantine/prism": "^5.9.2",
+    "@tabler/icons": "^1.115.0",
     "@typefaces-pack/typeface-inter": "^1.0.3",
     "clsx": "^1.1.1",
     "express": "^4.17.1",
@@ -42,7 +42,7 @@
     "immer": "^8.0.1",
     "invariant": "2.2.4",
     "lodash": "^4.17.21",
-    "next": "^10.0.3",
+    "next": "^11.1.4",
     "next-i18next": "^7.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -67,13 +67,13 @@
     "babel-plugin-dynamic-import-node": "^2.3.0",
     "coveralls": "^3.0.9",
     "cross-env": "^7.0.0",
-    "eslint": "^6.0.0",
+    "eslint": "^7.0.0",
     "eslint-config-prettier": "^5.0.0",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "^7.13.0",
-    "eslint-plugin-react-hooks": "^1.6.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-redux-saga": "^1.0.0",
     "husky": "^2.4.1",
     "jest-cli": "^24.9.0",

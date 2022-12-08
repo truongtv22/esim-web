@@ -7,7 +7,6 @@ import { withTranslation } from 'utils/with-i18next';
 export class IndexPage extends React.PureComponent {
   render() {
     const { t } = this.props;
-
     return <Home t={t} />;
   }
 }

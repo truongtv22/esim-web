@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Container } from '@mantine/core';
+
 import Header from 'components/Header';
-import Banner from 'components/Banner';
+// import Banner from 'components/Banner';
 import Footer from 'components/Footer';
 
 function Layout({ children }) {
   return (
     <>
       <Header />
-
-      <main>
-        <Banner />
-
+      <Container>
+        {/* <Banner /> */}
         {children}
-      </main>
-
+      </Container>
       <Footer />
     </>
   );

@@ -4,6 +4,11 @@
     "es": "Español",
     "en": "Inglés"
   },
+  "header": {
+    "home": "Hogar",
+    "pricing": "Fijación",
+    "about": "Sobre"
+  },
   "phrases": {
     "features": "Caracteristicas",
     "apiExample": "Ejemplo con api",

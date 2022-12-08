@@ -4,6 +4,11 @@
     "es": "Spanish",
     "en": "English"
   },
+  "header": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "about": "About"
+  },
   "phrases": {
     "features": "Features",
     "apiExample": "API example",
